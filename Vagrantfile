@@ -10,8 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Provisioning
   config.vm.provision :puppet do |p|
-    p.module_path = "puppet/modules"
-    p.manifests_path = "puppet/manifests"
+    p.module_path = "bootstrap/modules"
+    p.manifests_path = "bootstrap/manifests"
     p.manifest_file = "site.pp"
   end
 
@@ -27,8 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Puppet Master VM definition
   config.vm.define :puppet do |puppet|
-    puppet.vm.hostname = "puppet.lab"
+    puppet.vm.hostname = "puppet.vagrant.local"
     puppet.vm.network :private_network, ip: "192.168.100.10"
-    puppet.vm.provider("virtualbox") { |v| v.name = "puppet.lab" }
+    puppet.vm.provider("virtualbox") { |v| v.name = "puppet" }
   end
 end
