@@ -101,6 +101,11 @@ class jepm::config {
     content => template("${module_name}/puppet.conf.erb"),
     notify  => Service['puppetmaster'],
   }
+  file { '/etc/puppet/autosign.conf':
+    ensure  => file,
+    content => "*\n",
+    notify  => Service['puppetmaster'],
+  }
 }
 
 # Class: jepm::service
