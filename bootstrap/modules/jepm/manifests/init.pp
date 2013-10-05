@@ -37,10 +37,14 @@
 #
 class jepm {
   include jepm::repo
-  include jepm::package
+  include jepm::install
+  include jepm::config
+  include jepm::service
 
   Class['jepm::repo'] ->
-  Class['jepm::package']
+  Class['jepm::install'] ->
+  Class['jepm::config'] ->
+  Class['jepm::service']
 
 }
 
@@ -70,12 +74,35 @@ class jepm::repo {
   }
 }
 
-# Class: jepm::package
+# Class: jepm::install
 #
 #
-class jepm::package {
+class jepm::install {
   package { "puppet-server":
     ensure  => installed,
   }
+}
 
+# Class: jepm::config
+#
+#
+class jepm::config {
+  file { '/etc/puppet/puppet.conf':
+    ensure => file,
+    content => template("${module_name}/puppet.conf.erb"),
+    notify  => Service['puppetmaster'],
+  }
+}
+
+# Class: jepm::service
+#
+#
+class jepm::service {
+  service { 'puppetmaster':
+    enable => true,
+    ensure => running,
+    #hasrestart => true,
+    #hasstatus => true,
+    #require => Class["config"],
+  }
 }
