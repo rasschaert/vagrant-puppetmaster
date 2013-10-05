@@ -22,7 +22,7 @@ class jepm::repo {
           }
         }
         default: {
-          notice => "unknown version: ${::operatingsystemrelease}".
+          warning("unknown version: ${::operatingsystemrelease}")
         }
       }
     }
