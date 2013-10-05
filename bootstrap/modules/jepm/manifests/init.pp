@@ -78,8 +78,17 @@ class jepm::repo {
 #
 #
 class jepm::install {
-  package { "puppet-server":
-    ensure  => installed,
+  case $::osfamily {
+    'RedHat', 'CentOS': {
+      package { 'puppet-server':
+        ensure  => installed,
+      }
+    }
+    'Debian', 'Ubuntu': {
+      package { 'puppetmaster':
+        ensure  => installed,
+      }
+    } 
   }
 }
 

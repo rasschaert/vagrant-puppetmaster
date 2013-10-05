@@ -2,10 +2,5 @@
 #
 #
 class puppetmaster {
-
-
   include jepm
-
-
-
 }
