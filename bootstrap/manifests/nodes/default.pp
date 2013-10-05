@@ -6,5 +6,6 @@ node default {
       }
       Exec['apt-get update'] -> Package <| |>
     }
+    default: {}
   }
 }
