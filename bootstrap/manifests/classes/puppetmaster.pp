@@ -2,7 +2,10 @@
 #
 #
 class puppetmaster {
-  package { "puppetmaster":
-    ensure => installed,
-  }
+
+
+  include jepm
+
+
+
 }

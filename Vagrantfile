@@ -4,9 +4,12 @@
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Using latest Ubuntu LTS
-  config.vm.box = "ubuntu-12.04.2-x86_64"
-  config.vm.box_url =
+  # config.vm.box = "ubuntu-12.04.2-x86_64"
+  # config.vm.box_url =
     "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
+
+  # Using CentOS 6
+  config.vm.box = "centos-6.4-x86_64"
 
   # Provisioning
   config.vm.provision :puppet do |p|

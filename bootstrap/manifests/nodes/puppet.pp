@@ -1,3 +1,3 @@
-node 'puppet.vagrant.local' inherits 'default' {
+node 'puppet.vagrant.local' {#inherits 'default' {
   include puppetmaster
 }
