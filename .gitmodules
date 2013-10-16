@@ -1,3 +1,15 @@
 [submodule "master/modules/puppetdb"]
 	path = master/modules/puppetdb
 	url = https://github.com/puppetlabs/puppetlabs-puppetdb.git
+[submodule "master/modules/stdlib"]
+	path = master/modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "master/modules/inifile"]
+	path = master/modules/inifile
+	url = https://github.com/puppetlabs/puppetlabs-inifile.git
+[submodule "master/modules/firewall"]
+	path = master/modules/firewall
+	url = https://github.com/puppetlabs/puppetlabs-firewall.git
+[submodule "master/modules/postgresql"]
+	path = master/modules/postgresql
+	url = https://github.com/puppetlabs/puppetlabs-postgresql.git
