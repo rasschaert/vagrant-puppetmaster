@@ -27,8 +27,5 @@ class dnsmasq (
     require => Package['dnsmasq'],
   }
 
-  file { "/etc/dnsmasq.d/${::domain}":
-    ensure  => file,
-    require => Package['dnsmasq'],
-  }
+  include dnsmasq::collect
 }

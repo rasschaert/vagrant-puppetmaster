@@ -19,5 +19,9 @@ class dns::client {
 # Class: dns::entry
 # Export a hosts line so it can be collected by DNSmasq
 class dns::entry {
-  # resources
+  @@concat::fragment {"$::hostname":
+    target  => "/etc/dnsmasq.d/${::domain}.conf",
+    content => "1.2.3.4 ${::hostname}",
+    tag     => 'dns-entry',
+  }
 }
