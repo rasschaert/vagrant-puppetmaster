@@ -4,18 +4,18 @@
 #
 # === Parameters
 #
-# $upstream_nameservers, the upstream nameservers to use for forwarding queries
+# $forward_nameservers, the forward nameservers to use for forwarding queries
 # default: ['8.8.8.8', '8.8.4.4'] which are the Google public DNS servers.
 # You could also use the OpenDNS servers: ['208.67.222.222', '208.67.220.220']
 #
 # === Example
 #
 #  class { dnsmasq:
-#    upstream_nameservers => ['208.67.222.222', '208.67.220.220'],
+#    forward_nameservers => ['208.67.222.222', '208.67.220.220'],
 #  }
 #
 class dnsmasq (
-  $upstream_nameservers = ['8.8.8.8', '8.8.4.4'],
+  $forward_nameservers = ['8.8.8.8', '8.8.4.4'],
 ){
   package { 'dnsmasq':
     ensure  => installed,
@@ -27,5 +27,25 @@ class dnsmasq (
     require => Package['dnsmasq'],
   }
 
+  file { "/etc/dnsmasq.d/${::domain}.conf":
+    ensure  => file,
+    require => Package['dnsmasq'],
+    content =>
+      "resolv-file=/etc/resolv.dnsmasq\naddn-hosts=/etc/hosts.dnsmasq\n",
+    notify  => Service['dnsmasq'],
+  }
+
+  file { '/etc/resolv.dnsmasq':
+    ensure  => file,
+    content => template("${module_name}/resolv.dnsmasq.erb"),
+    notify  => Service['dnsmasq'],
+  }
+
   include dnsmasq::collect
+
+  service { 'dnsmasq':
+    enable => true,
+    ensure => running,
+    require => Class['dnsmasq::collect'],
+  }
 }
