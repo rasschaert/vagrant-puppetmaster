@@ -30,5 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.vm.hostname = "puppet.vagrant.local"
     puppet.vm.network :private_network, ip: "192.168.100.10"
     puppet.vm.provider("virtualbox") { |v| v.name = "puppet" }
+    puppet.vm.synced_folder "master/manifests/", "/etc/puppet/manifests"
+    puppet.vm.synced_folder "master/modules/", "/etc/puppet/modules"
   end
 end
