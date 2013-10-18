@@ -31,7 +31,7 @@ class dnsmasq (
     ensure  => file,
     require => Package['dnsmasq'],
     content =>
-      "resolv-file=/etc/resolv.dnsmasq\naddn-hosts=/etc/hosts.dnsmasq\n",
+      "resolv-file=/etc/resolv.dnsmasq\nno-hosts\naddn-hosts=/etc/hosts.dnsmasq\n",
     notify  => Service['dnsmasq'],
   }
 
