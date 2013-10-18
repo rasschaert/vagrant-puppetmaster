@@ -22,10 +22,14 @@ This stage just does what's necessary to get the master up and running so that t
 ### Stage 2
 This stage uses the JEPM to set up a more complete stack.
 
-  - PuppetDB
+  - Puppet Master running under Apache and Passenger
+  - PuppetDB so you can use exported resources
   - Dnsmasq
-  - MCollective
+  - MCollective using ActiveMQ for orchestration
 
 Project status
------------------------------
-The Puppet master, PuppetDB and Dnsmasq are OK, MCollective is a work in progress.
+--------------
+  - The puppet master works, although it's still using Webrick instead of Passenger
+  - PuppetDB is OK
+  - Dnsmasq is OK
+  - MCollective has not yet been added
