@@ -1,6 +1,6 @@
 # Class: dns::server
 # Generic DNS server class
-# DNSmasq because it is lightweight and easy to configure
+# Dnsmasq because it is lightweight and easy to configure
 class dns::server {
   include dnsmasq
 }

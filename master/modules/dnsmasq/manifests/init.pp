@@ -1,6 +1,6 @@
 # == Class: dnsmasq
 #
-# Sets up and configures the lightweight DNSMasq server.
+# Sets up and configures the lightweight Dnsmasq server.
 #
 # === Parameters
 #
