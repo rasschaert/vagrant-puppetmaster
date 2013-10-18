@@ -1,8 +1,12 @@
 Vagrant Puppetmaster
-=================================
+====================
 About
 -----
-It's pretty cool that Vagrant can provision machines with Puppet, but having a real Puppet master doing the provisioning in a Vagrant environment is even cooler. This project uses the puppet provisioning of Vagrant to set up a bare minimum puppet master server, which can then do the rest of the provisioning of both itself and the other VM's.
+It's pretty cool that Vagrant can provision machines with Puppet, but having a real Puppet master doing the provisioning in a Vagrant environment is even cooler.
+
+You also have the added advantage of being able to used exported resources in PuppetDB and orchestration through MCollective.
+
+This project uses the puppet provisioning of Vagrant to set up a bare minimum puppet master server, which can then do the rest of the provisioning of both itself and the other VM's.
 
 2 stages of provisioning
 ------------------------
@@ -18,10 +22,10 @@ This stage just does what's necessary to get the master up and running so that t
 ### Stage 2
 This stage uses the JEPM to set up a more complete stack.
 
-  - DNSMasq
-  - MCollective
   - PuppetDB
+  - Dnsmasq
+  - MCollective
 
 Project status
 -----------------------------
-This project is not yet in a usable state.
+The Puppet master, PuppetDB and Dnsmasq are OK, MCollective is a work in progress.
