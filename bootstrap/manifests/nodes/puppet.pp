@@ -1,7 +1,7 @@
-node 'puppet.vagrant.local' inherits default {
-  include puppetmaster
-  include stage2
+node 'puppet.vagrant.local' {
+  include puppet::master
+  include puppet::run
 
-  Class['puppetmaster'] ->
-  Class['stage2']
+  Class['puppet::master'] ->
+  Class['puppet::run']
 }
