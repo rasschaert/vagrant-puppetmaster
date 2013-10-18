@@ -1,18 +1,7 @@
 class jepm {
-  include jepm::repo
-  include jepm::install
-  include jepm::config
-  include jepm::service
-
-  Class['jepm::repo'] ->
-  Class['jepm::install'] ->
-  Class['jepm::config'] ->
-  Class['jepm::service']
-}
-
-class jepm::repo {
   case $::osfamily {
     'RedHat', 'CentOS': {
+      $puppetmaster_package = 'puppet-server'
       case $::operatingsystemrelease {
         /^5/: {
           package { 'puppetlabs-release':
@@ -34,43 +23,37 @@ class jepm::repo {
           warning("unknown version: ${::operatingsystemrelease}")
         }
       }
-    }
-    default: {}
-  }
-}
-
-class jepm::install {
-  case $::osfamily {
-    'RedHat', 'CentOS': {
-      package { 'puppet-server':
+      package { "$puppetmaster_package":
         ensure  => installed,
+        require => Package['puppetlabs-release'],
       }
     }
+
     'Debian', 'Ubuntu': {
-      package { 'puppetmaster':
+      $puppetmaster_package = 'puppetmaster'
+      package { "$puppetmaster_package":
         ensure  => installed,
       }
     }
+
     default: {}
   }
-}
 
-class jepm::config {
   file { '/etc/puppet/puppet.conf':
     ensure  => file,
     content => template("${module_name}/puppet.conf.erb"),
     notify  => Service['puppetmaster'],
   }
+
   file { '/etc/puppet/autosign.conf':
     ensure  => file,
     content => "*\n",
     notify  => Service['puppetmaster'],
   }
-}
 
-class jepm::service {
   service { 'puppetmaster':
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
+    require => Package["$puppetmaster_package"],
   }
 }
