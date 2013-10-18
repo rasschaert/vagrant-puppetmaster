@@ -3,19 +3,26 @@
 
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Using CentOS 6
+
+############
+# Base box #
+############
   config.vm.box = "centos-6.4-x86_64"
-  # config.vm.box_url =
+  config.vm.box_url =
     "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box"
 
-  # Provisioning
+################################
+# Global provisioning settings #
+################################
   config.vm.provision :puppet do |p|
     p.module_path = "bootstrap/modules"
     p.manifests_path = "bootstrap/manifests"
     p.manifest_file = "site.pp"
   end
 
-  # VirtualBox settings
+##############################
+# Global VirtualBox settings #
+##############################
    config.vm.provider "virtualbox" do |v|
     v.customize [
       "modifyvm", :id,
@@ -25,7 +32,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  # Puppet Master VM definition
+##################
+# VM definitions #
+##################
+  # Puppetmaster
   config.vm.define :puppet do |puppet|
     puppet.vm.hostname = "puppet.vagrant.local"
     puppet.vm.network :private_network, ip: "192.168.100.10"
@@ -33,4 +43,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.vm.synced_folder "master/manifests/", "/etc/puppet/manifests"
     puppet.vm.synced_folder "master/modules/", "/etc/puppet/modules"
   end
+  # Web server
+  config.vm.define :web do |web|
+    web.vm.hostname = "web.vagrant.local"
+    web.vm.network :private_network, ip: "192.168.100.11"
+    web.vm.provider("virtualbox") { |v| v.name = "web" }
+  end
+
 end

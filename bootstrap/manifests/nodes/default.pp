@@ -1,4 +1,6 @@
 node default {
+  include dns::client
+
   case $::osfamily {
     'Debian', 'Ubuntu': {
       exec { 'apt-get update':
