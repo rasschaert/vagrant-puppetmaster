@@ -4,25 +4,25 @@
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-############
-# Base box #
-############
+################################################################################
+# Base box                                                                     #
+################################################################################
   config.vm.box = "centos-6.4-x86_64"
-  config.vm.box_url =
-    "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box"
+  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/" +
+    "centos-64-x64-vbox4210.box"
 
-################################
-# Global provisioning settings #
-################################
+################################################################################
+# Global provisioning settings                                                 #
+################################################################################
   config.vm.provision :puppet do |p|
     p.module_path = "bootstrap/modules"
     p.manifests_path = "bootstrap/manifests"
     p.manifest_file = "site.pp"
   end
 
-##############################
-# Global VirtualBox settings #
-##############################
+################################################################################
+# Global VirtualBox settings                                                   #
+################################################################################
    config.vm.provider "virtualbox" do |v|
     v.customize [
       "modifyvm", :id,
@@ -32,9 +32,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-##################
-# VM definitions #
-##################
+################################################################################
+# VM definitions                                                               #
+################################################################################
   # Puppetmaster
   config.vm.define :puppet do |puppet|
     puppet.vm.hostname = "puppet.vagrant.local"
