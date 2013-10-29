@@ -11,6 +11,7 @@ node 'puppet.vagrant.local' {
   include jepm
   include puppet::run
 
+  Service['iptables'] ->
   Class['jepm'] ->
   Class['puppet::run']
 }
