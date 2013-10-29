@@ -8,9 +8,9 @@ node 'puppet.vagrant.local' {
     ensure => stopped,
   }
 
-  include puppet::master
+  include jepm
   include puppet::run
 
-  Class['puppet::master'] ->
+  Class['jepm'] ->
   Class['puppet::run']
 }
