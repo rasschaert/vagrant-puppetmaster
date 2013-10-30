@@ -1,3 +1,5 @@
+# Class: jepm
+# Just Enough Puppet Master
 class jepm {
   case $::osfamily {
     'RedHat', 'CentOS': {
@@ -9,7 +11,7 @@ class jepm {
             provider => rpm,
             source   =>
               'http://yum.puppetlabs.com/puppetlabs-release-el-5.noarch.rpm',
-            before   => Package["$puppetmaster_package"],
+            before   => Package[$puppetmaster_package],
           }
         }
         /^6/: {
@@ -18,7 +20,7 @@ class jepm {
             provider => rpm,
             source   =>
               'http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm',
-            before   => Package["$puppetmaster_package"],
+            before   => Package[$puppetmaster_package],
           }
         }
         default: {
@@ -51,14 +53,14 @@ class jepm {
           File['/etc/apt/sources.list.d/puppetlabs.list'],
           File['/etc/apt/trusted.gpg.d/puppetlabs-keyring.gpg'],
         ],
-        before  => Package["$puppetmaster_package"],
+        before  => Package[$puppetmaster_package],
       }
     }
 
     default: {}
   }
 
-  package { "$puppetmaster_package":
+  package { $puppetmaster_package:
     ensure  => latest,
   }
 
@@ -66,19 +68,19 @@ class jepm {
     ensure  => file,
     content => template("${module_name}/puppet.conf.erb"),
     notify  => Service['puppetmaster'],
-    require => Package["$puppetmaster_package"],
+    require => Package[$puppetmaster_package],
   }
 
   file { '/etc/puppet/autosign.conf':
     ensure  => file,
     content => "*\n",
     notify  => Service['puppetmaster'],
-    require => Package["$puppetmaster_package"],
+    require => Package[$puppetmaster_package],
   }
 
   service { 'puppetmaster':
     ensure  => running,
     enable  => true,
-    require => Package["$puppetmaster_package"],
+    require => Package[$puppetmaster_package],
   }
 }
