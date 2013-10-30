@@ -24,7 +24,7 @@ This stage uses the JEPM to set up a more complete stack.
 
   - Puppet Master running under Apache and Passenger
   - PuppetDB so you can use exported resources
-  - Dnsmasq
+  - Dnsmasq, which makes use of the exported resources to automatically make DNS records for all machines in this Vagrant environment
   - MCollective using ActiveMQ for orchestration
 
 Project status
