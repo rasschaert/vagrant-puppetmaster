@@ -17,9 +17,9 @@ class dns::client {
 # Class: dns::entry
 # Export a hosts line so it can be collected by DNSmasq
 class dns::entry {
-  @@concat::fragment {"$::fqdn":
+  @@concat::fragment {$::fqdn:
     # target  => "/etc/dnsmasq.d/${::domain}.conf",
-    target  => "/etc/hosts.dnsmasq",
+    target  => '/etc/hosts.dnsmasq',
     content => "${::ipaddress_eth1}\t${::fqdn}\n",
     tag     => 'dns-entry',
   }
