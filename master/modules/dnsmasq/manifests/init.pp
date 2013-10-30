@@ -30,8 +30,8 @@ class dnsmasq (
   file { "/etc/dnsmasq.d/${::domain}.conf":
     ensure  => file,
     require => Package['dnsmasq'],
-    content => "resolv-file=/etc/resolv.dnsmasq\nno-hosts\n" +
-      "addn-hosts=/etc/hosts.dnsmasq\n",
+    content => "resolv-file=/etc/resolv.dnsmasq\nno-hosts\n\
+addn-hosts=/etc/hosts.dnsmasq\n",
     notify  => Service['dnsmasq'],
   }
 
